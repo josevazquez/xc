@@ -39,12 +39,12 @@ if arguments.count > 0 {
         // First try opening the argument as a relative path. If that doesn't work,
         // Try it again as an absolute path.
         let relativeFilePath = "\(path)/\(file)"
-
+        
         if openFile(relativeFilePath, withApplication:Xcode, exitOnSuccess:false) == false {
             openFile(file, withApplication:Xcode, exitOnSuccess:false)
         }
     }
-
+    
 // If not arguments were passed open Xcode with some sensical default.
 } else {
     // Try to open the workspace first, and quit if success.
@@ -52,7 +52,7 @@ if arguments.count > 0 {
 
     // Now, try to open the project, and quit if that succeeds.
     openFile(projectPath, withApplication:Xcode, exitOnSuccess:true)
-
+    
     // Finally, just attempt to launch Xcode.
     NSWorkspace.sharedWorkspace().launchApplication(Xcode)
 }
