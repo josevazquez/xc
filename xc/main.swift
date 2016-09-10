@@ -2,12 +2,15 @@
 
 import AppKit
 
+////////////////////////////////////////////////////////////////////////////////
+// Set up global variables to be used in the rest of the script ////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 let Xcode = "Xcode"
 
 // Get all arguments and remove the first one which is the name of the executable itself.
 var arguments = CommandLine.arguments
 arguments.remove(at: 0)
-
 
 // Get current directory path and assigne the last element of the path to the projectFolder
 let fileManager = FileManager.default
@@ -22,6 +25,12 @@ guard let projectFolder = url.pathComponents.last else {
 // Given the projectFolder, derive what the expected project and workspace files would be.
 let workspacePath = "\(path)/\(projectFolder).xcworkspace"
 let projectPath = "\(path)/\(projectFolder).xcodeproj"
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Declare a couple of helper functions to do the actual opening of a file
+////////////////////////////////////////////////////////////////////////////////
 
 /// Helper function of open up files if they exist. Can optionally exit the script on success.
 func open(file:String, exitOnSuccess:Bool) -> Bool {
@@ -55,6 +64,14 @@ func open(filesWithExtension fileExtension:String) {
     }
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////
+// This is the actual script. Notice that there is no class or methods or much 
+// of anything. Since this is a script, everything here is written in the top
+// level scope. This is also the excuse I use to justify the blatant use of 
+// global variables.
+////////////////////////////////////////////////////////////////////////////////
 
 // If arguments were passed, attempt to open each one, one at a time, in Xcode.
 if arguments.count > 0 {
