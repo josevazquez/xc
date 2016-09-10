@@ -33,7 +33,12 @@ $ chmod +x xc
 ```
 The nice thing to this approch is that you can easily hack on `xc`. Simply edit the file with your favorite editor (Xcode? probably not :-P) Any changes you make to the script should be in effect the next time you run the script. neat!
 
-
+###Symbolic link
+You can also create a link in your executalbe path. This allows you to keep the `main.siwft` file in your project, probalby outside of your executable path and have a link that lets you use `xc` whereever you need it. to create the symbolic link do:
+```
+$ ln -s <path_to_project>/xc/xc/main.swift xc 
+```
+Again, make sure that link is created somewhere in your search path and that it has executable permissions. This is a wierd in between case. I like it becuase it let's me hack in the xcode project with debugger and all, while still be able to run the `xc` script anywhere the command line takes me.
 
 
 Let me know if you find any bugs or have suggestions. I can also be reached on twitter as @josevazquez
