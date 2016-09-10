@@ -20,4 +20,20 @@ Xcode projects it can find in it. It searches for the following cases, and stops
 Interesting note, if you already have several Xcode windows open, and you use `xc` to reopen one of them, Xcode will
 simply bring that window to the front.
 
+##Installation
+To actually use `xc`, you have a couple of choices
+
+###Binary Executable
+You can open `xc.xcodeproj` and simply hit build. If you look in your products, you should be able to find the resulting `xc` executable. You can then copy that somewhere in your search path and you should be good to go. Nice thing about this approach is that, someday, in the future, Apple will once again change Swift. If you use the compiled version of `xc`, your tool will not break when that day comes.
+
+###Interpreted script
+If you search in the project, you can find the file `main.swift`. You can copy that file, and rename it to `xc` and move it somewhere in your search path. For it to be executable, you will need to make sure to set it's permissions. You can do that with this command:
+```
+$ chmod +x xc
+```
+The nice thing to this approch is that you can easily hack on `xc`. Simply edit the file with your favorite editor (Xcode? probably not :-P) Any changes you make to the script should be in effect the next time you run the script. neat!
+
+
+
+
 Let me know if you find any bugs or have suggestions. I can also be reached on twitter as @josevazquez
