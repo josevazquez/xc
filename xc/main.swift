@@ -23,9 +23,9 @@ guard let projectFolder = url.pathComponents.last else {
 let workspacePath = "\(path)/\(projectFolder).xcworkspace"
 let projectPath = "\(path)/\(projectFolder).xcodeproj"
 
-/// Helper function of open up files if they exist. can optionally exit the script on success.
-func open(file:String, application:String, exitOnSuccess:Bool) -> Bool {
-    let success = NSWorkspace.shared().openFile(file, withApplication:application)
+/// Helper function of open up files if they exist. Can optionally exit the script on success.
+func open(file:String, exitOnSuccess:Bool) -> Bool {
+    let success = NSWorkspace.shared().openFile(file, withApplication:Xcode)
     if exitOnSuccess && success {
         exit(EXIT_SUCCESS)
     }
@@ -47,7 +47,7 @@ func open(filesWithExtension fileExtension:String) {
     var fileFound = false
     for file in files.filter({$0.hasSuffix(fileExtension)}) {
         let fullPath = "\(path)/\(file)"
-        fileFound = fileFound || open(file:fullPath, application:Xcode, exitOnSuccess:false)
+        fileFound = fileFound || open(file:fullPath, exitOnSuccess:false)
     }
 
     if(fileFound) {
@@ -63,18 +63,18 @@ if arguments.count > 0 {
         // Try it again as an absolute path.
         let relativeFilePath = "\(path)/\(file)"
 
-        if open(file:relativeFilePath, application:Xcode, exitOnSuccess:false) == false {
-            _ = open(file:file, application:Xcode, exitOnSuccess:false)
+        if open(file:relativeFilePath, exitOnSuccess:false) == false {
+            _ = open(file:file, exitOnSuccess:false)
         }
     }
 
 // If not arguments were passed open Xcode with some sensical default.
 } else {
     // Try to open the workspace first, and quit if success.
-    _ = open(file:workspacePath, application:Xcode, exitOnSuccess:true)
+    _ = open(file:workspacePath, exitOnSuccess:true)
 
     // Now, try to open the project, and quit if that succeeds.
-    _ = open(file:projectPath, application:Xcode, exitOnSuccess:true)
+    _ = open(file:projectPath, exitOnSuccess:true)
 
     open(filesWithExtension:".xcworkspace")
     open(filesWithExtension:".xcodeproj")
